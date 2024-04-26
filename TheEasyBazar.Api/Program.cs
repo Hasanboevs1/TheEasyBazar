@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using TheEasyBazar.Api.Extensions;
 using TheEasyBazar.Api.MiddleWare;
 using TheEasyBazar.Data;
@@ -26,7 +27,17 @@ builder.Services.AddCustomService();
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 
+// Logging
 
+var logger = new LoggerConfiguration()
+    .ReadFrom.Configuration(builder.Configuration)
+    .Enrich.FromLogContext()
+    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+
+ 
 
 var app = builder.Build();
 

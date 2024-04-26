@@ -6,10 +6,12 @@ namespace TheEasyBazar.Api.MiddleWare
     public class ExceptionHandlerMiddleWare
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<ExceptionHandlerMiddleWare> _logger;
 
-        public ExceptionHandlerMiddleWare(RequestDelegate next)
+        public ExceptionHandlerMiddleWare(RequestDelegate next, ILogger<ExceptionHandlerMiddleWare> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
 
@@ -30,6 +32,7 @@ namespace TheEasyBazar.Api.MiddleWare
             }
             catch (Exception ex)
             {
+                _logger.LogError($"{ex}\n\n");
                 context.Response.StatusCode = 500;
                 await context.Response.WriteAsJsonAsync(new Response
                 {
