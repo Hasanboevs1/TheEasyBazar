@@ -67,7 +67,7 @@ public class UserService : IUserService
         var mappedUser = _mapper.Map<User>(dto);
 
         var result = await _repository.UpdateAsync(mappedUser);
-
+        mappedUser.UpdatedAt = DateTime.UtcNow;
         return _mapper.Map<UserForResultDto>(result);
 
     }

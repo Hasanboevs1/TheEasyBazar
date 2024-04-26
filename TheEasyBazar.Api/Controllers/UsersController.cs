@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TheEasyBazar.Api.Models;
 using TheEasyBazar.Service.DTOs.Users;
 using TheEasyBazar.Service.Interfaces;
 
@@ -16,38 +17,48 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<List<UserForResultDto>> GetAll()
-    {
-        var users = await _service.RetrieveAllAsync();
+    public async Task<IActionResult> GetAll()
+        => Ok(new Response
+        {
+            Code = 200,
+            Message = "success",
+            Data = await _service.RetrieveAllAsync()
+        });
 
-        return users.ToList();
-    }
 
     [HttpGet("id")]
-    public async Task<UserForResultDto> GetById(long id)
-    {
-        var user = await _service.RetrieveByIdAsync(id);
-        return user;
-    }
+    public async Task<IActionResult> GetById(long id)
+        => Ok(new Response
+        {
+            Code = 200,
+            Message = "success",
+            Data = await _service.RetrieveByIdAsync(id)
+        });
 
     [HttpPost]
-    public async Task<UserForResultDto> Create(UserForCreationDto dto)
-    {
-        var user = await _service.CreateAsync(dto);
-        return user;
-    }
+    public async Task<IActionResult> Create(UserForCreationDto dto)
+        => Ok( new Response
+        {
+            Code = 200,
+            Message = "success",
+            Data = await _service.CreateAsync(dto)
+        });
 
     [HttpDelete("id")]
-    public async Task<bool> Delete(long id)
-    {
-        var user = await _service.RemoveAsync(id);
-        return user;
-    }
+    public async Task<IActionResult> Delete(long id)
+        => Ok(new Response
+        {
+            Code = 200,
+            Message = "success",
+            Data = await _service.RemoveAsync(id)
+        });
 
     [HttpPut]
-    public async Task<UserForResultDto> Update(UserForUpdateDto dto)
-    {
-        var user = await _service.UpdateAsync(dto);
-        return user;
-    }
+    public async Task<IActionResult> Update(UserForUpdateDto dto)
+        => Ok(new Response
+        {
+            Code = 200,
+            Message = "success",
+            Data = await _service.UpdateAsync(dto)
+        });
 }

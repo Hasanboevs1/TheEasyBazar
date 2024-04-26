@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using TheEasyBazar.Api.Extensions;
 using TheEasyBazar.Api.MiddleWare;
 using TheEasyBazar.Data;
 using TheEasyBazar.Data.IRepositories;
@@ -20,13 +21,12 @@ builder.Services.AddDbContext<AppDbContext>(opt =>
 });
 
 
-
-builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
-builder.Services.AddScoped<IUserService, UserService>();
-
+builder.Services.AddCustomService();
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+
+
 
 var app = builder.Build();
 
