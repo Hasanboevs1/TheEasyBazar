@@ -24,7 +24,7 @@ public class UserService : IUserService
             .FirstOrDefaultAsync(x => x.Email.ToLower() == dto.Email.ToLower());
 
         if (user != null)
-            throw new CustomException(404, "User already exists..");
+            throw new CustomException(409, "User already exists..");
 
         var mappedUser = _mapper.Map<User>(dto);
         mappedUser.CreatedAt = DateTime.UtcNow;
