@@ -28,8 +28,8 @@ public class UserService : IUserService
 
         var mappedUser = _mapper.Map<User>(dto);
         mappedUser.CreatedAt = DateTime.UtcNow;
-
         var result = await _repository.InsertAsync(mappedUser);
+
         return _mapper.Map<UserForResultDto>(result);
     }
 
