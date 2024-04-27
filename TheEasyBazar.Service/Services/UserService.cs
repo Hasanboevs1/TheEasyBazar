@@ -65,9 +65,9 @@ public class UserService : IUserService
         if (user is null)
             throw new CustomException(404, "User Not found");
         var mappedUser = _mapper.Map<User>(dto);
+        mappedUser.UpdatedAt = DateTime.UtcNow;
 
         var result = await _repository.UpdateAsync(mappedUser);
-        mappedUser.UpdatedAt = DateTime.UtcNow;
         return _mapper.Map<UserForResultDto>(result);
 
     }
